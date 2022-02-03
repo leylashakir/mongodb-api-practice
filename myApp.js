@@ -29,12 +29,19 @@ const createAndSavePerson = (done) => {
       console.log(err);
     }
     console.log(`${person.name} saved to database`);
+    return done(null, person);
   });
-  return done(null, person);
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/);
+  Person.create(
+    arrayOfPeople
+  ).save(function(err, data) {
+    if (err) {
+      console.log(err);
+    }
+    done(null, data);
+  })
 };
 
 const findPeopleByName = (personName, done) => {
